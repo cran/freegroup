@@ -1,0 +1,139 @@
+---
+title: "The free group in R"
+author: "Robin K. S. Hankin"
+date: "`r Sys.Date()`"
+vignette: >
+  %\VignetteIndexEntry{Free group}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r set-options, echo = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", dev = "png", fig.width = 7, fig.height = 3.5, message = FALSE, warning = FALSE)
+options(width = 80, tibble.width = Inf)
+```
+
+# The freegroup package
+
+This package provides some functionality for manipulating the free
+group on a finite list of symbols.
+
+There is an excellent [wikipedia
+page](https://en.wikipedia.org/wiki/Free_group).
+
+Basically, the free group~$\left(X,\circ\right)$ on a
+set~$S=\{a,b,c,...,z\}$ is the set~$X$ of *words* that are things like
+$c^{-4}bb^2aa^{-1}ca$.  Usually one works only with words that are in
+*reduced form*, which has successive powers of the same symbol
+combined, in this case it would be $c^{-4}b^3ca$; see how the $a$ term
+in the middle has vanished.
+
+The group operation is juxtaposition; thus, for example
+$a^2b^{-3}c^2\circ c^{-2}ba =a^2b^{-3}c^2c^-2ba =a^2b^{-2}ba$.
+
+A word is represented by a two-row integer matrix: The top row is the
+integer representation of the symbol and the second row is the
+corresponding power.  For example, say we want to
+represent~$a^2b^{-3}ac^2a^{-2}$ we would identify $a$ as 1, $b$ as 2, etc
+and write
+
+
+```{r}
+(M <- rbind(c(1,2,3,3,1),c(2,-3,2,3,-2)))
+```
+
+(see how negative entries in the second row correspond to negative
+powers).  Then to convert to a more useful form we would have
+
+```{r}
+library(freegroup)
+(x <- free(M))
+```
+
+The representation for R object `x` is still a two-row matrix, but the
+print method is active and uses a more visually appealing scheme.
+
+We can coerce strings to free objects:
+
+
+```{r}
+(y <- as.free("aabbbcccc"))
+```
+
+The free group operation is simply justaposition, represented here by
+the plus symbol, "`+`":
+
+
+```{r}
+x+y
+```
+
+See how the $a$ "cancels out" in the juxtaposition.  Note that
+concatenation is associative.  Multiplication is also defined.
+Suppose we want to concatenate 5 copies of `x`:
+
+```{r}
+x*5
+```
+
+The package is vectorized:
+
+```{r}
+x*(0:3)
+```
+
+There are a few methods for creating free objects:
+
+```{r}
+abc(1:9)
+rfree(10,4)
+```
+
+Inverses are calculated using unary or binary minus:
+
+```{r}
+(u <- rfree(10,4))
+-u
+u-u
+```
+
+
+We can take the "sum" of a vector of free objects simply by
+juxtaposing the elements:
+
+```{r}
+sum(u)
+```
+
+Powers are defined as per group conjugation: `x^y == y^{-1}xy` (or,
+written in additive notation, `-y+x+y`):
+
+```{r}
+u
+z <- alpha(26)
+u^z
+```
+
+
+Thus:
+
+```{r}
+sum(u^z) == sum(u^z)
+```
+
+
+
+
+If we have more than 26 symbols the print method runs out of letters:
+
+```{r}
+free(rbind(1:30,1))
+```
+
+If this is a problem (it might not be: the print method might not be
+important) it is possible to override the default symbol set:
+
+```{r}
+options(symbols = state.abb)
+free(rbind(1:50,1))
+```
