@@ -18,9 +18,26 @@ as.character_free(m,latex=getOption("latex"))
 }
 \author{Robin K. S. Hankin}
 \note{
+The print method does not change the internal representation of a
+\code{free} object, which is a list of integer matrices.
+
 The default print method uses multiplicative notation (powers) which is
 inconsistent with the juxtaposition method \dQuote{\code{+}}.
+
+The print method has special dispensation for length-zero free objects
+but these are not handled entirely consistently.
+
+The default print method uses lowercase letters a-z, but it is possible
+to override this using \code{options(symbols = foo)}, where \code{foo}
+is a character vector.  This is desirable if you have more than 26
+symbols, because unallocated symbols appear as \code{NA}.
+
+The package will allow the user to set \code{options("symbols")} to
+unhelpful things like \code{rep("a",20)} without complaining (but don't
+actually do it, you crazy fool).
+
 }
+\seealso{\code{\link{char_to_free}}}  
 \examples{
 
 ## default symbols:
@@ -30,10 +47,14 @@ rfree(1,10)
 
 
 # if we need more than 26:
+options(symbols=state.name)
+rfree(10,4)
 
-options(symbols=apply(expand.grid(letters[1:10],letters[1:10]),1,paste,collapse=""))
-rfree(1,100)
+# or even:
+jj <- letters[1:10]
+options(symbols=apply(expand.grid(jj,jj),1,paste,collapse=""))
+rfree(10,10,100,4)
 
-options(symbols=NULL)  #   NULL is interpreted as letters
-
+options(symbols=NULL)  #  NULL is interpreted as letters a-z
+rfree(10,4)            #  back to normal
 }

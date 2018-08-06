@@ -32,13 +32,13 @@
       if(.Generic == "*"){
          return(free_repeat(e1,e2))   #e2 should be an integer
       } else {
-         stop(paste("<perm>", .Generic, "<non-perm> is not defined ",collapse=" "))
+         stop(paste("<free>", .Generic, "<non-free> is not defined ",collapse=" "))
         }
     } else if (!lclass && rclass){
         if(.Generic == "*"){
             return(free_repeat(e2,e1))   #e1 should be an integer
         } else {
-            stop(paste("<non-perm>", .Generic, "<perm> is not defined ",collapse=" "))
+            stop(paste("<non-free>", .Generic, "<free> is not defined ",collapse=" "))
         }
     } else if (!lclass && !rclass){
         stop("should not reach here")
@@ -74,6 +74,7 @@
 }
 
 `free_equal` <- function(e1,e2){
+    stopifnot(is.free(e1),is.free(e2))
     jj <- cbind(seq_along(e1),seq_along(e2))
     apply(jj,1,function(x){
         return(
@@ -84,6 +85,7 @@
 }
 
 `free_repeat` <- function(e1,n){ # e1 is free, n an integer
+    if(identical(as.integer(n),0L)){return(id(length(e1)))}
     jj <- cbind(seq_along(e1),seq_along(n))
     out <- list()
     for(i in seq_len(nrow(jj))){

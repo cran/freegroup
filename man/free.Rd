@@ -31,13 +31,16 @@ row is the corresponding power. Thus \eqn{a^2ba^{-1}}{a^2ba^-1} would be
 }
 
 Function \code{free()} needs either a two-row matrix or a list of
-two-row matrices; function \code{as.free()} is a bit more user-friendly
-and tries a bit harder to do the Right Thing.
+two-row matrices.  It is the only place in the package that sets the
+class of an objet to \code{free}.  Function \code{as.free()} is a bit
+more user-friendly and tries a bit harder to do the Right Thing.
 
 }
 \author{Robin K. S. Hankin}
+\seealso{\code{\link{char_to_free}}}
 \examples{
 free(rbind(1:5,5:1))
+
 x <- rfree(10,4)
 x
 x+x

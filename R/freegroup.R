@@ -4,7 +4,7 @@
     } else if(is.matrix(x)){
         return(free(x))
     } else if(is.character(x)){
-        return(free(char_to_matrix(x)))
+        return(char_to_free(x))
     } else if(identical(x,0)|identical(x,0L)){
         return(free(matrix(0,2,0)))
     } else if (is.list(x)){
@@ -27,7 +27,15 @@
 }
 
 `char_to_matrix` <- function(x){
-  reduce(rbind(as.numeric(charToRaw(x))-96,1))
+  if(nchar(x)>0){
+    return(rbind(as.numeric(charToRaw(x))-96,1))
+  } else {   # x=''
+    return(matrix(0,2,0))
+  }
+}
+
+`char_to_free` <- function(x){
+  free(sapply(x,char_to_matrix,simplify=FALSE))
 }
 
 `list_to_free` <- function(x){
@@ -64,7 +72,11 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
 }
 
 `print.free` <- function(x, ...){
-    print(noquote(unlist(lapply(x,as.character_free,...))))
+    if(length(x)==0){
+      print(NULL)
+    } else {      
+      print(noquote(unlist(lapply(x,as.character_free,...))))
+    }
     return(invisible(x))
 }
 
@@ -173,19 +185,53 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
 }
 
 `abc` <- function(n){
-  free(sapply(n,function(o){rbind(seq_len(o),1)},simplify=FALSE))
+    free(sapply(n,
+                function(o){
+                    if(o>0){
+                        return(rbind(seq_len(o),1))
+                    } else if (o==0){
+                        return(rbind(1,0))
+                    } else {
+                        return(rbind(rev(seq_len(-o)),-1))
+                    }
+                },
+                simplify=FALSE))
 }
 
 `alpha` <- function(v){
-    free(sapply(v,function(x){rbind(x,1)},simplify=FALSE))
+    free(sapply(v,
+                function(x){
+                    if(x!=0){
+                        return(rbind(abs(x),sign(x)))
+                    } else {
+                        return(rbind(1,0))
+                    }
+                },
+                simplify=FALSE))
 }
 
-`is.identity` <- function(x){x==as.free(0)}
+`is.id` <- function(x){ UseMethod("is.id",x) }
+`is.id.free` <- function(x){x==as.free(0)}
 
-`is.cyclically.reduced` <- function(a){unlist(lapply(unclass(a), function(o){o[1,1]!=o[1,ncol(o)]}))}
+`id` <- function(n){free(rep(list(matrix(1,2,0)),n))}
+
+`.cycred` <- function(a){
+  n <- ncol(a)
+  if(n>0){
+      if(a[1,1] != a[1,n]){
+          return(TRUE)
+      } else {
+          return(prod(a[2,c(1,n)])>0)
+      }
+  } else { 
+      return(NA)
+  }
+}
+
+`is.cyclically.reduced` <- function(a){unlist(lapply(unclass(a), .cycred))}
   
 `is.cyclically.reduced2` <- function(a){
-  a %>% unclass %>% lapply(function(o){o[1,1]!=o[1,ncol(o)]}) %>% unlist
+  a %>% unclass %>% lapply(.cycred) %>% unlist
 }  
 
 `abelianize` <- function(x){
@@ -213,3 +259,25 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
     }
     return(out)
 }
+
+`getlet` <- function(x){
+  out <- lapply(x,function(m){sort(unique(m[1,]))})
+  if(length(out)==1){out <- out[[1]]}
+  return(out)
+}
+
+`keep` <- function(a,yes){
+    yes <- getlet(as.free(yes))
+    a %<>% unclass %>% lapply(function(m){m[,(m[1,] %in% yes),drop=FALSE]}) %>% free
+  return(a)
+}
+
+`drop` <- function(a,no){
+    no <- getlet(as.free(no))
+    jj <- unique(c(getlet(a),recursive=TRUE))
+    keep(a, jj[!jj %in% no])
+}
+
+`backwards` <- function(x){
+    free(lapply(x,function(o){o[,rev(seq_len(ncol(o))),drop=FALSE]}))
+  }

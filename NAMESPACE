@@ -17,3 +17,5 @@ S3method("cumsum" , free)
 
 S3method("tietze",free)
 S3method("tietze",matrix)
+
+S3method("is.id",free)
