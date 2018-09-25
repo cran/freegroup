@@ -20,7 +20,8 @@ vec_to_matrix(x)
   represent the inverses of the symbols.
 
   Function \code{vec_to_free()} is a low-level helper function that
-  returns a two-row integer matrix.
+  returns a two-row integer matrix.  If given \code{0} or \code{NULL},
+  it returns a two-row, zero-column matrix.
   }
 
 \author{Robin K. S. Hankin}

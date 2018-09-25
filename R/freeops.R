@@ -84,7 +84,7 @@
         )
 }
 
-`free_repeat` <- function(e1,n){ # e1 is free, n an integer
+`free_repeat` <- function(e1,n){ # e1 is free, n an integer; makes vectorized "e1*n" work
     if(identical(as.integer(n),0L)){return(id(length(e1)))}
     jj <- cbind(seq_along(e1),seq_along(n))
     out <- list()

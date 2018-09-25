@@ -1,14 +1,13 @@
-## define some checker functions, call them at the end.  They should
-## all return TRUE if the package works.  Function checker1() has one
-## argument, checker2() two, and checker3() has three.  These
+## Define some checker functions, and call them at the end.  They
+## should all return TRUE if the package works.  Function checker1()
+## has one argument, checker2() two, and checker3() has three.  These
 ## functions also check that the vectorization is OK; so for example
-## in checker2(), if is of length 10 and 'y' is of length 1 [e.g. x <-
-## rfree(10,2,2) and y <- rfree(10,2,2)], then all three of
+## in checker2(), if 'x' is of length 10 and 'y' is of length 1
+## [e.g. x <- rfree(10,2,2) and y <- rfree(10,2,2)], then all three of
 ## checker2(x,y), checker2(x,y[1]), checker2(x[1],y) should return
 ## TRUE.
 
 library(freegroup)
-
 
 checker1 <- function(x){
   stopifnot(x==x)
@@ -55,6 +54,34 @@ checker1 <- function(x){
   stopifnot(is.id(cumsum(c(x,-rev(x)))[2*length(x)]))
   stopifnot(cumsum(x)[length(x)] == sum(x))
 
+  allsymbols <- getlet(sum(x))
+  if(length(allsymbols)>0){ # guard against identity, always problematic
+      a <- allsymbols[1]
+      stopifnot(size(flip(x,a))   == size(x))
+      stopifnot(total(flip(x,a))  == total(x))
+      stopifnot(number(flip(x,a)) == number(x))
+  }
+  if(length(allsymbols)>=2){ # two or more symbols needed
+      b <- allsymbols[2]
+      stopifnot(size(subs(x,a,b))   <= size(x))
+      stopifnot(total(subs(x,a,b))  <= total(x))
+      stopifnot(number(subs(x,a,b)) <= number(x))
+  }
+
+  stopifnot(size(as.cyclically_reduced(x)) <= size(x))
+  stopifnot(total(as.cyclically_reduced(x)) <= total(x))
+  stopifnot(number(as.cyclically_reduced(x)) <= number(x))
+
+  stopifnot(is.cyclically_reduced(as.cyclically_reduced(x)))
+
+  for(i in seq_along(x)){
+    o <- as.cyclically_reduced(x[i])
+    stopifnot(o %~% allconj(o))
+    stopifnot(all(is.id(allconj(o) + allconj(-o)[shift(rev(1:total(o)))])))
+  }
+
+
+  
   return(TRUE)
 }
 
@@ -79,6 +106,16 @@ checker2 <- function(x,y){
   stopifnot(sum(x^y[1]) == sum(x)^y[1])
 
 
+  stopifnot(  size(x+y) <= size(x)   +   size(y))
+  stopifnot( total(x+y) <= total(x)  +  total(y))
+  stopifnot(number(x+y) <= number(x) + number(y))
+
+  stopifnot(  size(x+y) <= size  (abs(x) + abs(y)))
+  stopifnot( total(x+y) <= total (abs(x) + abs(y)))
+  stopifnot(number(x+y) <= number(abs(x) + abs(y)))
+
+  stopifnot(is.conjugate(x,x^y))
+
   return(TRUE)
 }
 
@@ -101,9 +138,9 @@ check_abelianize <- function(n){
 
 
 for(i in 1:10){
-    x <- rfree(10,3,2)
-    y <- rfree(10,3,2)
-    z <- rfree(10,3,2)
+    x <- rfree(10,6,3)
+    y <- rfree(10,6,3)
+    z <- rfree(10,6,3)
     
     checker1(x)
     checker2(x,y)
@@ -111,7 +148,10 @@ for(i in 1:10){
 }
 
 
+
+
 sapply(1:10,check_abelianize)
+
 
 
 ## The following checks verify that various bugs are truly fixed:
@@ -119,4 +159,6 @@ as.free('a') * 0
 as.free('a') * (-10:10)
 stopifnot(sapply(0:10,function(n){is.id(alpha(n)+alpha(-n))}))
 stopifnot(sapply(0:10,function(n){is.id(abc(n)+abc(-n))}))
-
+stopifnot(checker1(id()))
+stopifnot(checker1(as.free('a')))
+stopifnot(checker1(as.free('ab')))

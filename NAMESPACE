@@ -1,6 +1,15 @@
 exportPattern("^[[:alpha:]]+")
+
 import("magrittr")
 import("methods")
+
+importFrom("magic","shift")
+importFrom("magic","circulant")
+importFrom("plyr","alply")
+
+export("%~%")
+
+S3method("%~%", free)
 
 S3method("[", free)
 S3method("[<-", free)
@@ -19,3 +28,6 @@ S3method("tietze",free)
 S3method("tietze",matrix)
 
 S3method("is.id",free)
+S3method("is.conjugate",free)
+
+S3method("abs", free)

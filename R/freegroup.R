@@ -53,7 +53,7 @@
 
 `vec_to_matrix` <- function(x){  # takes a *vector* like c(1,2,-1,-1,2); returns a matrix
     if(all(x==0)){
-        return(as.free(0))
+        return(matrix(NA,2,0))
     } else {
         x <- x[x!=0]
        return(rbind(abs(x),sign(x)))
@@ -172,12 +172,12 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
     return(free(out))
 }
 
-`rfree` <- function(n,size,howmanyletters=size,powers=seq(from=-size,to=size)){
+`rfree` <- function(n,size,number=size,powers=seq(from=-size,to=size)){
   out <- list()
   for(i in seq_len(n)){
     out[[i]] <- 
       rbind(
-          sample(howmanyletters,size,replace=TRUE),
+          sample(number,size,replace=TRUE),
           sample(powers,size,replace=TRUE)
       )
   }
@@ -215,7 +215,7 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
 
 `id` <- function(n){free(rep(list(matrix(1,2,0)),n))}
 
-`.cycred` <- function(a){
+`.is_cyc_reduced` <- function(a){  # low-level, works with matrices
   n <- ncol(a)
   if(n>0){
       if(a[1,1] != a[1,n]){
@@ -224,15 +224,85 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
           return(prod(a[2,c(1,n)])>0)
       }
   } else { 
-      return(NA)
+      return(TRUE)
   }
 }
 
-`is.cyclically.reduced` <- function(a){unlist(lapply(unclass(a), .cycred))}
+`is.cyclically_reduced` <- function(a){unlist(lapply(unclass(a), .is_cyc_reduced))}
   
-`is.cyclically.reduced2` <- function(a){
-  a %>% unclass %>% lapply(.cycred) %>% unlist
-}  
+`is.cyclically_reduced2` <- function(a){
+  a %>% unclass %>% lapply(.is_cyc_reduced) %>% unlist
+}
+
+`cyclically_reduce_tietze` <- function(p){  # p is in reduced tietze form
+  if(length(unique(p))<2){  # either empty, or only one distinct symbol
+    return(p)  
+  }
+  n <- floor(length(p)/2)
+  jj <- (p[seq_len(n)] + p[seq(from=length(p),by= -1, len=n)]) != 0 # zero means cancellable
+  if(all(jj)){ # nothing to cancel
+    out <- p
+  } else if(any(jj)){  # potential cancellations
+    i <- min(which(jj))  # there will be i-1 cancellations
+    out <- p[seq(from=i,to=length(p)-i+1)]  ## select the middle bit 
+  } else {
+    ## At this point, all(jj==0); everything from 1-n cancels
+    if(length(p)%%2){ # argument p has odd length
+     out <- p[n+1]   # return the central element
+    } else {  # p has even length
+      out <- NULL # return the identity
+    }
+  }
+  return(out)
+}
+
+`as.cyclically_reduced` <- function(a){
+  f <- function(p){ vec_to_matrix(cyclically_reduce_tietze(p))}
+  return(free(lapply(tietze(a), f)))
+}
+
+`cyclically_reduce` <- as.cyclically_reduced
+
+
+`is.conjugate_single` <- function(u,v){
+
+  ## this is a low-level helper function, takes two integer vectors
+  ## (words in Tietze form)
+
+  if( (length(u)==0) & (length(v)==0)){return(TRUE)}
+  if(length(u) != length(v)){ return(FALSE) }
+  ##  at this point, both have identical nonzero length
+  out <-
+    apply(
+        kronecker(t(u),1L+u*0L) ==
+        magic::circulant(v,doseq=FALSE), 1,all)
+  
+  return(any(out))
+}
+
+"is.conjugate" <- function(x,y){UseMethod("is.conjugate")}
+
+`is.conjugate.free` <- function(x,y){  # this is the user-friendly function
+  jj <-  cbind(seq_along(x),seq_along(y))
+  f <- function(v){
+    is.conjugate_single(
+        unlist(tietze(as.cyclically_reduced(x[v[1]]))),
+        unlist(tietze(as.cyclically_reduced(y[v[2]])))
+    )}
+  apply(jj,1,f)
+}
+
+"%~%" <- function(x,y){UseMethod("%~%")}
+"%~%.free" <- function(x,y){is.conjugate(x,y)}
+
+`allconj` <- function(x){
+  stopifnot(length(x)==1)
+  x <- as.cyclically_reduced(x)
+  if(is.id(x)){return(id())}
+  out <- free(plyr::alply(magic::circulant(tietze(x)[[1]],doseq=FALSE),1,vec_to_matrix))
+  names(out) <- NULL
+  return(out)
+}
 
 `abelianize` <- function(x){
   lapply(x,
@@ -272,7 +342,7 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
   return(a)
 }
 
-`drop` <- function(a,no){
+`discard` <- function(a,no){
     no <- getlet(as.free(no))
     jj <- unique(c(getlet(a),recursive=TRUE))
     keep(a, jj[!jj %in% no])
@@ -281,3 +351,50 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
 `backwards` <- function(x){
     free(lapply(x,function(o){o[,rev(seq_len(ncol(o))),drop=FALSE]}))
   }
+
+`subs` <- function(a,from,to){
+  from <- getlet(as.free(from))
+  to <- getlet(as.free(to))
+  stopifnot(length(to) == 1)
+  
+  s <- function(M,from,to){
+    M[1,M[1,] %in% from] <- to
+    return(M)
+  }
+    
+  a %<>% unclass %>% lapply(s,from=from,to=to) %>% free
+  return(a)
+}
+
+`flip` <- function(a,turn){
+  turn <- getlet(as.free(turn))
+  
+  s <- function(M,turn){
+    M[2,M[1,] %in% turn] %<>% "*"(-1)
+    return(M)
+  }
+
+  a %<>% unclass %>% lapply(s,turn=turn) %>% free
+  return(a)  
+}
+
+`abs.free` <- function(x){
+  s <- function(M){
+    M[2,] %<>% abs
+    return(M)
+  }
+  x %<>% unclass %>% lapply(s) %>% free
+  return(x)
+}
+
+`size` <- function(a){unlist(lapply(a,ncol))}
+`total` <- function(a){unlist(lapply(a,function(M){sum(abs(M[2,]))}))}
+`number` <- function(a){unlist(lapply(a,function(M){length(table(abs(M[1,])))}))}
+
+`bigness` <- function(a){
+  out <- cbind(size=size(a),total=total(a),number=number(a))
+  rownames(out) <- as.character(lapply(a,function(x){as.character_free(x)}))
+  return(drop(out))
+  }
+
+

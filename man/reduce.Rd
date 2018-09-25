@@ -2,8 +2,6 @@
 \alias{reduce}
 \alias{remove_zero_powers}
 \alias{is_reduced}
-\alias{is.cyclically.reduced}
-\alias{is.cyclically.reduced2}
 \alias{consolidate}
 \alias{is_proper}
 \title{Reduction of a word to reduced form}
@@ -13,8 +11,6 @@
 reduce(a)
 is_reduced(a)
 remove_zero_powers(a)
-is.cyclically.reduced(a)
-is.cyclically.reduced2(a)
 consolidate(a)
 is_proper(a)
 }
@@ -22,8 +18,6 @@ is_proper(a)
   \item{a}{An object of class \code{free}}
 }
 \details{
-
-
   A word is \dfn{reduced} if no symbol appears next to its own inverse
   and no symbol has zero power.  The essence of the package is to reduce
   a word into a reduced form.  Thus \eqn{a^2b^{-1}ba}{a^2b^-1ba} will
@@ -51,8 +45,7 @@ is_proper(a)
   (irrespective of power) or, if identical, have powers of opposite
   sign.  For example, \code{abac} and \code{abca} are cyclically reduced
   but \code{abca^{-1}} is not.  Function \code{is.cyclically.reduced()}
-  tests for this.  Function \code{is.cyclically.reduced2()} gives
-  identical output; it uses slicker but marginally slower R idiom.
+  tests for this, documented at \code{cycred.Rd}.
 
   Whether the identity should be regarded as cyclically reduced is
   problematic.  On the one hand the identity cannot be shortened by a
@@ -65,6 +58,7 @@ is_proper(a)
   
 }
 \author{Robin K. S. Hankin}
+\seealso{\code{\link{cycred}}}
 \examples{
 
 ## create a matrix:

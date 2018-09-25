@@ -22,7 +22,7 @@ There is an excellent [wikipedia
 page](https://en.wikipedia.org/wiki/Free_group).
 
 Basically, the free group~$\left(X,\circ\right)$ on a
-set~$S=\{a,b,c,...,z\}$ is the set~$X$ of *words* that are things like
+set $S=\{a,b,c,...,z\}$ is the set $X$ of *words* that are things like
 $c^{-4}bb^2aa^{-1}ca$.  Usually one works only with words that are in
 *reduced form*, which has successive powers of the same symbol
 combined, in this case it would be $c^{-4}b^3ca$; see how the $a$ term
@@ -60,7 +60,7 @@ We can coerce strings to free objects:
 (y <- as.free("aabbbcccc"))
 ```
 
-The free group operation is simply justaposition, represented here by
+The free group operation is simply juxtaposition, represented here by
 the plus symbol, "`+`":
 
 

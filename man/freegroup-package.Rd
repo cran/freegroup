@@ -33,6 +33,6 @@ sum(a)
 
 abelianize(a)
 
-drop(a+x,'a')
+discard(a+x,'a')
 
 }
