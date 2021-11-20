@@ -21,21 +21,23 @@ group on a finite list of symbols.
 There is an excellent [wikipedia
 page](https://en.wikipedia.org/wiki/Free_group).
 
-Basically, the free group~$\left(X,\circ\right)$ on a
-set $S=\{a,b,c,...,z\}$ is the set $X$ of *words* that are things like
-$c^{-4}bb^2aa^{-1}ca$.  Usually one works only with words that are in
-*reduced form*, which has successive powers of the same symbol
-combined, in this case it would be $c^{-4}b^3ca$; see how the $a$ term
-in the middle has vanished.
+Informally, the *free group* $\left(X,\circ\right)$ on a set
+$S=\{a,b,c,...,z\}$ is the set $X$ of _words_ that are objects like
+$W=c^{-4}bb^2aa^{-1}ca$, with a group operation of string
+juxtaposition.  Usually one works only with words that are in *reduced
+form*, which has successive powers of the same symbol combined, so $W$
+would be equal to $c^{-4}b^3ca$; see how $b$ appears to the third
+power and the $a$ term in the middle has vanished.
 
-The group operation is juxtaposition; thus, for example
-$a^2b^{-3}c^2\circ c^{-2}ba =a^2b^{-3}c^2c^-2ba =a^2b^{-2}ba$.
+The group operation of juxtaposition is formally indicated by $\circ$,
+but this is often omitted in algebraic notation; thus, for example
+$a^2b^{-3}c^2\circ c^{-2}ba =a^2b^{-3}c^2c{^-2}ba =a^2b^{-2}ba$.
 
-A word is represented by a two-row integer matrix: The top row is the
-integer representation of the symbol and the second row is the
-corresponding power.  For example, say we want to
-represent~$a^2b^{-3}ac^2a^{-2}$ we would identify $a$ as 1, $b$ as 2, etc
-and write
+In R package ```freegroup```, a word is represented by a two-row
+integer matrix: The top row is the integer representation of the
+symbol and the second row is the corresponding power.  For example,
+say we want to represent $a^2b^{-3}ac^2a^{-2}$ we would identify $a$
+as 1, $b$ as 2, etc and write
 
 
 ```{r}
@@ -46,7 +48,7 @@ and write
 powers).  Then to convert to a more useful form we would have
 
 ```{r}
-library(freegroup)
+library("freegroup")
 (x <- free(M))
 ```
 
@@ -68,9 +70,21 @@ the plus symbol, "`+`":
 x+y
 ```
 
-See how the $a$ "cancels out" in the juxtaposition.  Note that
-concatenation is associative.  Multiplication is also defined.
-Suppose we want to concatenate 5 copies of `x`:
+(see how the $a$ "cancels out" in the juxtaposition).  One motivation
+for the use of "`+`" rather than  "`*`" is that Python uses ```+```
+for appending strings:
+
+```
+>>> "a" + "abc"
+'aabc'
+>>> 
+```
+
+However, note that the ```+``` symbol is usually reserved for
+commutative operations; note that string juxtaposition is associative.
+Multiplication by integers---denoted in ```freegroup``` idiom by
+```*```---is also defined.  Suppose we want to concatenate 5 copies of
+`x`:
 
 ```{r}
 x*5
@@ -82,10 +96,15 @@ The package is vectorized:
 x*(0:3)
 ```
 
-There are a few methods for creating free objects:
+There are a few methods for creating free objects, for example:
 
 ```{r}
 abc(1:9)
+```
+
+And we can also generate random free objects:
+
+```{r}
 rfree(10,4)
 ```
 

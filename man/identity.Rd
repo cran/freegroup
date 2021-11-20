@@ -18,8 +18,8 @@ id(n)
 }
 \details{
 
-Function \code{id()} returns a vector of free objects, all of which are
-the identity element.  Do not ask what happens if \eqn{n=0}.
+Function \code{id()} returns a vector of \code{n} free objects, all of
+which are the identity element.  Do not ask what happens if \eqn{n=0}.
 
 Function \code{is.id()} returns a Boolean indicating whether an element
 is the identity or not.  The identity can also be generated using

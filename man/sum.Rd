@@ -1,6 +1,8 @@
 \name{sum}
 \alias{sum}
 \alias{sum.free}
+\alias{prodfree}
+\alias{freeprod}
 \title{Repeated summation by concatenation}
 \description{
 Concatenates its arguments to give a single free object
@@ -18,6 +20,15 @@ Concatenates its arguments to give a single free object
   group.  It works nicely with \code{rev()}, see the examples.
 }
 \author{Robin K. S. Hankin}
+\note{
+
+The package uses additive notation, but it is easy to forget this and
+wonder why idiom like \code{prod(rfree())} does not work as desired.  Of
+course, the package using additive notation means that one probably
+wants \code{sum(rfree())}.
+
+
+  }
 \examples{
 
 x <- rfree(10,3)

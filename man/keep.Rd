@@ -2,6 +2,7 @@
 \alias{keep}
 \alias{discard}
 \alias{drop}
+\alias{retain}
 \alias{drop.free}
 \title{Keep or drop symbols}
 \description{Keep or drop symbols}

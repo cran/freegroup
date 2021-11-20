@@ -1,9 +1,10 @@
 \name{rfree}
 \alias{rfree}
 \title{Random free objects}
-\description{Creates a vector of random free objects}
+\description{Creates a vector of random free objects.  Intended as a
+  quick \dQuote{get you going} example of free group objects}
 \usage{
-rfree(n, size, number = size, powers = seq(from = -size, to = size))
+rfree(n=7, size=4, number = size, powers = seq(from = -size, to = size))
 }
 \arguments{
   \item{n}{Length of random vector to generate}
@@ -18,8 +19,10 @@ object with small  meaning simpler.}
 \seealso{\code{\link{size}}}
 \examples{
 
-x <- rfree(10,2)
-y <- rfree(10,30,26)
+rfree()
+
+rfree(10,2)
+rfree(10,30,26)
 
 rfree(20,2)^alpha(26)
 

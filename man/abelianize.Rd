@@ -1,7 +1,9 @@
 \name{abelianize}
 \alias{abelianize}
 \title{Abelianization of free group elements}
-\description{Return the result of modifying a free group element under the assumption of Abelianness}
+\description{Function \code{abelianize()} returns a word that is
+equivalent to its argument under assumption of Abelianness.  The symbols
+are placed in alphabetical order.}
 \usage{abelianize(x)}
 \arguments{
   \item{x}{An object of class \code{free}}

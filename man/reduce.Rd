@@ -47,15 +47,6 @@ is_proper(a)
   but \code{abca^{-1}} is not.  Function \code{is.cyclically.reduced()}
   tests for this, documented at \code{cycred.Rd}.
 
-  Whether the identity should be regarded as cyclically reduced is
-  problematic.  On the one hand the identity cannot be shortened by a
-  combination of cyclic permutation followed by reduction; but on the
-  other, I cannot exhibit a symbol at the start of the identity which
-  can be reduced by juxtaposition with a symbol at the end (because
-  there are no symbols).  Currently it returns \code{NA} but I am open
-  to suggestions.
-
-  
 }
 \author{Robin K. S. Hankin}
 \seealso{\code{\link{cycred}}}

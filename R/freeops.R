@@ -57,7 +57,7 @@
     for(i in seq_len(nrow(jj))){
         out[[i]] <- reduce(cbind(e1[[jj[i,1]]],e2[[jj[i,2]]]))
     }
-    free(out)
+    donames(free(out),e1,e2)
 }
 
 `free_power` <- function(e1,e2){
@@ -70,18 +70,20 @@
             e2[[jj[i,2]]]
                     ))
     }
-    free(out)
+    donames(free(out),e1,e2)
 }
 
 `free_equal` <- function(e1,e2){
     stopifnot(is.free(e1),is.free(e2))
     jj <- cbind(seq_along(e1),seq_along(e2))
-    apply(jj,1,function(x){
+    out <- 
+      apply(jj,1,function(x){
         return(
             all(dim(e1[[x[1]]]) == dim(e2[[x[2]]])) &&
             all(e1[[x[1]]] == e2[[x[2]]])
-            )}
+        )}
         )
+    donames(out,e1,e2)
 }
 
 `free_repeat` <- function(e1,n){ # e1 is free, n an integer; makes vectorized "e1*n" work
@@ -100,6 +102,14 @@
             inverse(M)[,rep(seq_len(ncol(M)),-nn),drop=FALSE]
         }
     }
-    return(free(out))
+    return(donames(free(out),e1,n))
 }   
 
+`donames` <- function(f,e1,e2){
+  jj1 <- seq_along(e1)
+  jj2 <- seq_along(e2)
+  names(jj1) <- names(e1)
+  names(jj2) <- names(e2)
+  names(f) <- names(jj1+jj2)
+  return(f)
+}

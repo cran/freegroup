@@ -19,14 +19,14 @@ bigness(a)
 
   \itemize{
 
-    \item The \dQuote{size} of an object is the number of pure powers in
+    \item The \dfn{size} of an object is the number of pure powers in
     it (this is the number of columns of the matrix representation of
     the word).
     
-    \item The \dQuote{total} of an object is the sum of the absolute
+    \item The \dfn{total} of an object is the sum of the absolute
     values of its powers
     
-    \item The \dQuote{number} of an object is the number of distinct symbols
+    \item The \dfn{number} of an object is the number of distinct symbols
     in it
   }
   

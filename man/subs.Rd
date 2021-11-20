@@ -10,7 +10,8 @@ flip(a, turn)
 \arguments{
   \item{a}{Object of class \code{free}}
   \item{from,to,turn}{Objects coerced to class \code{free} specifying symbols
-    to alter}
+    to alter.  These arguments are coerced to symbols using
+    \code{getlet(as.free())}}
 }
 \details{
 
@@ -20,9 +21,13 @@ flip(a, turn)
 
   Function \code{flip(a,turn)} takes object \code{a} and replaces every
   symbol present in \code{turn} with its inverse.
-
 }
 \author{Robin K. S. Hankin}
+
+\note{Function \code{subs()} substitutes for particular symbols, not
+  free group elements.
+}
+
 \seealso{\code{\link{abs}}}
 \examples{
 

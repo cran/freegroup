@@ -150,7 +150,8 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
         return(lapply(a,reduce))
     } else {
         while(!is_reduced(a)){
-            a %<>% consolidate %<>% remove_zero_powers
+#            a %<>% consolidate %<>% remove_zero_powers
+            a <- remove_zero_powers(consolidate(a))
         }
         return(a)
     }
@@ -172,7 +173,7 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
     return(free(out))
 }
 
-`rfree` <- function(n,size,number=size,powers=seq(from=-size,to=size)){
+`rfree` <- function(n=7,size=4,number=size,powers=seq(from=-size,to=size)){
   out <- list()
   for(i in seq_len(n)){
     out[[i]] <- 
@@ -229,10 +230,7 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
 }
 
 `is.cyclically_reduced` <- function(a){unlist(lapply(unclass(a), .is_cyc_reduced))}
-  
-`is.cyclically_reduced2` <- function(a){
-  a %>% unclass %>% lapply(.is_cyc_reduced) %>% unlist
-}
+#  a %>% unclass %>% lapply(.is_cyc_reduced) %>% unlist
 
 `cyclically_reduce_tietze` <- function(p){  # p is in reduced tietze form
   if(length(unique(p))<2){  # either empty, or only one distinct symbol
@@ -305,11 +303,11 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
 }
 
 `abelianize` <- function(x){
-  lapply(x,
+  free(lapply(x,
          function(o){  # takes a 2-row matrix
            jj <- unclass(by(o[2,],o[1,],sum))
            rbind(as.numeric(names(jj)),jj)
-         }) %>% free
+         }))
 }
 
 `sum.free` <- function(..., na.rm=FALSE){
@@ -338,8 +336,8 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
 
 `keep` <- function(a,yes){
     yes <- getlet(as.free(yes))
-    a %<>% unclass %>% lapply(function(m){m[,(m[1,] %in% yes),drop=FALSE]}) %>% free
-  return(a)
+#    a %<>% unclass %>% lapply(function(m){m[,(m[1,] %in% yes),drop=FALSE]}) %>% free
+    free(lapply(unclass(a),function(m){m[,(m[1,] %in% yes),drop=FALSE]}))
 }
 
 `discard` <- function(a,no){
@@ -362,8 +360,8 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
     return(M)
   }
     
-  a %<>% unclass %>% lapply(s,from=from,to=to) %>% free
-  return(a)
+#  a %<>% unclass %>% lapply(s,from=from,to=to) %>% free
+  free(lapply(unclass(a),s,from=from,to=to))
 }
 
 `flip` <- function(a,turn){

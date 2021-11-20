@@ -10,7 +10,6 @@ backwards(x)
 }
 \author{Robin K. S. Hankin}
 \note{
-
   Function \code{backwards()} is distinct from \code{rev()}, see examples.
 }
 \examples{
@@ -18,6 +17,6 @@ backwards(abc(1:5))
 rev(abc(1:5))
 
 x <- rfree(10,5)
-all(abelianize(x) == abelianize(backwards(x)))
+all(abelianize(x) == abelianize(backwards(x))) # should be TRUE
 
 }

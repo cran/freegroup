@@ -29,8 +29,9 @@ juxtapose(e1,e2)
 \details{
 
   The function \code{Ops.free()} passes binary arithmetic operators
-  (\dQuote{\code{+}}, \dQuote{\code{*}}, \dQuote{\code{^}}, and
-  \dQuote{\code{==}}) to the appropriate specialist function.
+  (\dQuote{\code{+}}, \dQuote{\code{-}}, \dQuote{\code{*}},
+  \dQuote{\code{^}}, and \dQuote{\code{==}}) to the appropriate
+  specialist function.
 
   There are two non-trivial operations: juxtaposition, denoted
   \dQuote{\code{a+b}}, and inversion, denoted \dQuote{\code{-a}}.  Note
