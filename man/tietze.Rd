@@ -20,22 +20,22 @@ vec_to_matrix(x)
   symbols of the word; typically \eqn{a=1,b=2,c=3,d=4}, etc.  Negative
   integers represent the inverses of the symbols.  Thus
   \code{c^4.d^-2.a.c} becomes \code{3 3 3 3 -4 -4 1 3}.
-
   
   Function \code{vec_to_matrix()} is a low-level helper function that
   returns a two-row integer matrix.  If given \code{0} or \code{NULL},
   it returns a two-row, zero-column matrix.
-
-  }
+}
 
 \author{Robin K. S. Hankin}
 \examples{
-tietze(rfree(10,3))
+
+(x <- rfree(10,3))
+tietze(x)
 
 vec_to_matrix(c(1,3,-1,-1,-1,2))
 
 as.free(list(c(1,1,8),c(2,-4,-4)))
 
-all(as.free(tietze(abc(1:30)))== abc(1:30))
+all(as.free(tietze(abc(1:30))) == abc(1:30))
 
 }

@@ -2,17 +2,12 @@
 \alias{char_to_free}
 \alias{char_to_matrix}
 \title{Convert character vectors to free objects}
-\description{
-Convert character vectors to free objects
-}
-\usage{
-char_to_matrix(x)
-}
+\description{Convert character vectors to free objects}
+\usage{char_to_matrix(x)}
 \arguments{
   \item{x}{A character vector}
 }
 \details{
-
   Function \code{char_to_matrix()} gives very basic conversion between
   character vectors and free objects.  Current functionality is limited
   to strings like \dQuote{\code{aaabaacd}}, which would give
@@ -33,17 +28,18 @@ char_to_matrix(x)
   \code{options(symbols=sample(letters))}, then things can get
   confusing.  The print method does not change the internal
   representation of a \code{free} object, which is a list of integer
-  matrices.  } \author{Robin K. S. Hankin}
-  \seealso{\code{\link{print.free}}} \examples{
+  matrices.}
 
-char_to_matrix("aaabacdcd")
+\author{Robin K. S. Hankin}
+\seealso{\code{\link{print.free}}}
+\examples{
+
+char_to_matrix("aaabcABC")
 
 rfree(10,3) + as.free('xxxxxxxxxxxx')
 
 as.free(letters)*7
 
 as.free('')  # identity element
-
-
 
 }

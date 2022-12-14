@@ -143,6 +143,9 @@ checker3 <- function(x,y,z){
   abelianize(x^z - x^y) %>% abelianize %>% is.id %>% stopifnot
   stopifnot(sum(x,y,z) == sum(sum(x),sum(y),sum(z)))
 
+  ## Hall-Witt:
+  stopifnot(all(is.id(.[.[x,-y],z]^y + .[.[y,-z],x]^z + .[.[z,-x],y]^x)))
+  
   return(TRUE)
 }
 

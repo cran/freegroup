@@ -21,6 +21,11 @@ flip(a, turn)
 
   Function \code{flip(a,turn)} takes object \code{a} and replaces every
   symbol present in \code{turn} with its inverse.
+
+  Function \code{discard()}, documented at \code{keep.Rd}, effectively
+  substitutes a symbol with the identity element (thereby discarding
+  it).
+
 }
 \author{Robin K. S. Hankin}
 
@@ -28,7 +33,7 @@ flip(a, turn)
   free group elements.
 }
 
-\seealso{\code{\link{abs}}}
+\seealso{\code{\link{abs}},\code{\link{discard}}}
 \examples{
 
 subs(abc(1:10),abc(5),'z')

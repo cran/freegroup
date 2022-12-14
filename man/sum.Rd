@@ -31,22 +31,21 @@ wants \code{sum(rfree())}.
   }
 \examples{
 
-x <- rfree(10,3)
-y <- rfree(10,6)
-z <- alpha(26)
-
-
+(x <- rfree(10,3))
 sum(x)
 abelianize(sum(x))
 
 
+(y <- rfree(10,6))
+
+sum(x,y)
 sum(x,y) == sum(sum(x),sum(y))
 x+y  # not the same!
 
 sum(x,-x)
 sum(x,rev(-x))
 
-
+z <- alpha(26)
 stopifnot(sum(x^z) == sum(x)^z)
 
 }

@@ -53,7 +53,7 @@ is_proper(a)
 \examples{
 
 ## create a matrix:
-M <- rbind(c(1,2,3,3,2,3,2,1),c(1,2,3,-3,5,0,7,0))
+(M <- rbind(c(1,2,3,3,2,3,2,1),c(1,2,3,-3,5,0,7,0)))
 
 ## call the print method (note non-reduced form):
 as.character_free(M)

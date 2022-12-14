@@ -16,11 +16,11 @@ getlet(x)
 }
 \examples{
 
-x <- rfree(30,4,11)
+(x <- rfree(6,7,3))
 
 getlet(x)
 
-as.free(getlet(x))
+as.free(getlet(x))  
 
 identical(as.free(getlet(abc(1:26))), abc(1:26))
 

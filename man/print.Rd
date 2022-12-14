@@ -1,5 +1,6 @@
 \name{print}
 \alias{print.free}
+\alias{print.freegroup}
 \alias{as.character_free}
 \title{Print free objects}
 \description{Print methods for free objects}

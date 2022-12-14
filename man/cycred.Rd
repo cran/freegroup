@@ -66,7 +66,8 @@ allconj(x)
 \seealso{\code{\link{reduce}}}
 \examples{
 
- as.cyclically_reduced(abc(1:9) - abc(9:1))
+(x <- abc(1:9) - abc(9:1))
+as.cyclically_reduced(x)
 
  a <- rfree(1000,3)
  all(size(as.cyclically_reduced(a)) <= size(a))

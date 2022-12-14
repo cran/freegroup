@@ -21,9 +21,10 @@ Robin K. S. Hankin
 }
 
 \examples{
-x <- rfree(10,3)
-y <- rfree(10,3)
-c(x,y)
+(x <- abc(1:3))
+(y <- alpha(22:25))
+
+c(x,y,x,x)
 
 
 ## NB: compare

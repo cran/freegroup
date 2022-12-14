@@ -12,6 +12,7 @@
 \author{Robin K. S. Hankin}
 \seealso{\code{\link{sum}}}
 \examples{
+abc(1:6)
 cumsum(abc(1:6))
 
 x <- rfree(10,2)

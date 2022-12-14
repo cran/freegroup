@@ -7,7 +7,7 @@
         } else if (.Generic == "-") {
             return(inverse(e1))
     } else {
-        stop("Unary operator '", .Generic, "' is not implemented for free objects")
+          stop(gettextf("unary operator %s is not implemented", dQuote(.Generic)))
     }
   }
 
@@ -26,19 +26,19 @@
         } else if (.Generic == "!=") {
             return(!free_equal(e1,e2))
         } else {
-            stop(paste("<free>", .Generic, "<free> not defined",collapse=" "))
+            stop(gettextf("<free> %s <free> not defined", .Generic))
         }
     } else if (lclass && !rclass){
       if(.Generic == "*"){
-         return(free_repeat(e1,e2))   #e2 should be an integer
+          return(free_repeat(e1,e2))   #e2 should be an integer
       } else {
-         stop(paste("<free>", .Generic, "<non-free> is not defined ",collapse=" "))
+          stop(gettextf("<free> %s <non-free> not defined", .Generic))
         }
     } else if (!lclass && rclass){
         if(.Generic == "*"){
             return(free_repeat(e2,e1))   #e1 should be an integer
         } else {
-            stop(paste("<non-free>", .Generic, "<free> is not defined ",collapse=" "))
+            stop(gettextf("<non-free> %s <free> not defined", .Generic))
         }
     } else if (!lclass && !rclass){
         stop("should not reach here")

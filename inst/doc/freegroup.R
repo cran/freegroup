@@ -1,63 +1,63 @@
 ### R code from vignette source 'freegroup.Rnw'
 
 ###################################################
-### code chunk number 1: freegroup.Rnw:71-73
+### code chunk number 1: freegroup.Rnw:72-74
 ###################################################
 library("freegroup")
 options(symbols=letters) # should not be necessary
 
 
 ###################################################
-### code chunk number 2: freegroup.Rnw:117-118
+### code chunk number 2: freegroup.Rnw:137-138
 ###################################################
 (M <- rbind(c(1,2,3,3,1),c(2,-3,2,3,-2)))
 
 
 ###################################################
-### code chunk number 3: freegroup.Rnw:124-126
+### code chunk number 3: freegroup.Rnw:144-146
 ###################################################
 library("freegroup")
 (x <- free(M))
 
 
 ###################################################
-### code chunk number 4: freegroup.Rnw:135-136
+### code chunk number 4: freegroup.Rnw:155-156
 ###################################################
 (y <- as.free("aabbbcccc"))
 
 
 ###################################################
-### code chunk number 5: freegroup.Rnw:143-144
+### code chunk number 5: freegroup.Rnw:163-164
 ###################################################
 x+y
 
 
 ###################################################
-### code chunk number 6: freegroup.Rnw:163-164
+### code chunk number 6: freegroup.Rnw:183-184
 ###################################################
 x*5
 
 
 ###################################################
-### code chunk number 7: freegroup.Rnw:169-170
+### code chunk number 7: freegroup.Rnw:189-190
 ###################################################
 x*(0:3)
 
 
 ###################################################
-### code chunk number 8: freegroup.Rnw:175-176
+### code chunk number 8: freegroup.Rnw:195-196
 ###################################################
 abc(1:9)
 
 
 ###################################################
-### code chunk number 9: freegroup.Rnw:181-182
+### code chunk number 9: freegroup.Rnw:201-202
 ###################################################
 rfree(10,4)
 
 
 ###################################################
-### code chunk number 10: freegroup.Rnw:187-190
+### code chunk number 10: freegroup.Rnw:207-210
 ###################################################
 (u <- rfree(10,4))
 -u
@@ -65,13 +65,13 @@ u-u
 
 
 ###################################################
-### code chunk number 11: freegroup.Rnw:196-197
+### code chunk number 11: freegroup.Rnw:216-217
 ###################################################
 sum(u)
 
 
 ###################################################
-### code chunk number 12: freegroup.Rnw:204-207
+### code chunk number 12: freegroup.Rnw:224-227
 ###################################################
 u
 z <- alpha(26)
@@ -79,26 +79,32 @@ u^z
 
 
 ###################################################
-### code chunk number 13: freegroup.Rnw:213-214
+### code chunk number 13: freegroup.Rnw:233-234
 ###################################################
 sum(u^z) == sum(u^z)
 
 
 ###################################################
-### code chunk number 14: freegroup.Rnw:219-220
+### code chunk number 14: freegroup.Rnw:240-241
+###################################################
+.[u,z]
+
+
+###################################################
+### code chunk number 15: freegroup.Rnw:246-247
 ###################################################
 alpha(1:30)
 
 
 ###################################################
-### code chunk number 15: freegroup.Rnw:226-228
+### code chunk number 16: freegroup.Rnw:253-255
 ###################################################
 options(symbols = state.abb)
 alpha(1:30)
 
 
 ###################################################
-### code chunk number 16: freegroup.Rnw:239-240
+### code chunk number 17: freegroup.Rnw:266-267
 ###################################################
 options(symbols=letters)
 

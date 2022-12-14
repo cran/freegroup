@@ -47,13 +47,10 @@ inspired this functionality.
 \seealso{\code{\link{abs}}}
 \examples{
 
-
-a <- rfree(20,6,4)
+(a <- rfree(20,6,4))
 size(a)
 total(a)
 number(a)
-
-
 
 a <- rfree(20,6,4)
 b <- rfree(20,6,4)

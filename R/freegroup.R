@@ -28,14 +28,20 @@
 
 `char_to_matrix` <- function(x){
   if(nchar(x)>0){
-    return(rbind(as.numeric(charToRaw(x))-96,1))
+      jj <- as.numeric(charToRaw(x))-96
+      s <- rep(1,length(jj))
+      s[jj<0] <- -1
+      jj[jj<0] <- jj[jj<0] + 32
+      return(rbind(jj,s))
   } else {   # x=''
-    return(matrix(0,2,0))
+      return(matrix(0,2,0))
   }
 }
 
 `char_to_free` <- function(x){
-  free(sapply(x,char_to_matrix,simplify=FALSE))
+    jj <- sapply(x,char_to_matrix,simplify=FALSE)
+    names(jj) <- names(x)
+    return(free(jj))
 }
 
 `list_to_free` <- function(x){
@@ -185,8 +191,8 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
   return(free(out))
 }
 
-`abc` <- function(n){
-    free(sapply(n,
+`abc` <- function(v){
+    free(sapply(v,
                 function(o){
                     if(o>0){
                         return(rbind(seq_len(o),1))
@@ -310,6 +316,8 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
          }))
 }
 
+`is.abelian` <- function(x){x==abelianize(x)}
+
 `sum.free` <- function(..., na.rm=FALSE){
   free(do.call("cbind",lapply(unclass(list(...)),function(x){do.call("cbind",x)})))
 }
@@ -395,4 +403,11 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
   return(drop(out))
   }
 
+
+setOldClass("free")
+setMethod("[", signature(x="dot",i="free",j="ANY"),
+          function(x,i,j,drop){
+              j <- as.free(j)
+              return(-i-j+i+j)
+          })
 

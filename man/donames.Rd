@@ -23,7 +23,9 @@ donames(f,e1,e2)
 \examples{
 
 x <- rfree(9,4)
+x
 names(x) <- letters[1:9]
+x
 
 z <- as.free('z')
 x + x 
