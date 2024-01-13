@@ -43,7 +43,7 @@ following four elementary Nielsen transformations:
 }
 
 The functions documented here give vectorized methods to effect such
-outer automorphisms, using the \pkg{permutations} package.
+outer automorphisms, using the \CRANpkg{permutations} package.
 
 Operations 1 and 2 above generate the symmetric group \eqn{S_n} and such
 automorphisms are effected by function \code{permsymb()}.  Operation
@@ -66,7 +66,7 @@ Encyclopedia}. Retrieved 19:58, January 10, 2019, from
 \note{
 
   Function \code{permsymb()} is intended to work nicely with the
-  \pkg{permutations} package; see \code{inst/outer.Rmd} for some
+  \CRANpkg{permutations} package; see \code{inst/outer.Rmd} for some
   illustrations.  The function is not perfect. }
 
 \examples{

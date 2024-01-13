@@ -9,7 +9,7 @@ The free group in R
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/freegroup)](https://cran.r-project.org/package=freegroup)
 [![Codecov test
-coverage](https://codecov.io/gh/RobinHankin/freegroup/branch/master/graph/badge.svg)](https://codecov.io/gh/RobinHankin/freegroup/branch/master)
+coverage](https://app.codecov.io/gh/RobinHankin/freegroup/branch/master/graph/badge.svg)](https://app.codecov.io/gh/RobinHankin/freegroup/branch/master)
 <!-- badges: end -->
 
 # Overview

@@ -88,7 +88,7 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
 
 `as.character_free` <- function(m,latex=getOption("latex")){ # takes a matrix
 
-    symbols <- getOption("symbols")
+    symbols <- getOption("freegroup_symbols")
     if(is.null(symbols)){symbols <- letters}
     if(ncol(m)==0){return("0")}
     if(isTRUE(latex)){
@@ -111,25 +111,15 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
 `remove_zero_powers` <- function(a){a[,a[2,,drop=FALSE]!=0,drop=FALSE]}
 
 `is_proper` <- function(a){
-    if(is.list(a)){
-        return(lapply(a,is_proper))
-        } else {
-            return(
-                is.matrix(a)     &&
-                nrow(a) == 2     &&
-                all(a==round(a)) &&
-                all(a[1,] > 0)
-            )
-        }
+  return(
+      is.matrix(a)     &&
+      nrow(a) == 2     &&
+      all(a==round(a)) &&
+      all(a[1,] > 0)
+  )
 }
 
-`is_reduced` <- function(a){
-    if(is.list(a)){
-        return(lapply(a,is_reduced))  # Recall() does not work here
-    } else {
-        return(all(a[2,]!=0) && all(diff(a[1,]) != 0))
-    }
-}
+`is_reduced` <- function(a){ all(a[2,]!=0) && all(diff(a[1,]) != 0) }
    
 `.gsr` <- function(a){  # gsr == Get Start Repeats
     cumsum(rle(a)$lengths)
@@ -358,7 +348,17 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
     free(lapply(x,function(o){o[,rev(seq_len(ncol(o))),drop=FALSE]}))
   }
 
-`subs` <- function(a,from,to){
+`subs` <- function(X,...){
+    sb <- list(...)
+    v <- names(sb)
+    out <- X
+    for (i in seq_along(sb)) {
+        out <- subsu(out, v[i],sb[[i]])
+    }
+    return(out)
+}
+
+`subsu` <- function(X,from,to){
   from <- getlet(as.free(from))
   to <- getlet(as.free(to))
   stopifnot(length(to) == 1)
@@ -369,10 +369,11 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
   }
     
 #  a %<>% unclass %>% lapply(s,from=from,to=to) %>% free
-  free(lapply(unclass(a),s,from=from,to=to))
+  free(lapply(unclass(X),s,from=from,to=to))
 }
 
-`flip` <- function(a,turn){
+
+`flip` <- function(X,turn){
   turn <- getlet(as.free(turn))
   
   s <- function(M,turn){
@@ -380,8 +381,8 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
     return(M)
   }
 
-  a %<>% unclass %>% lapply(s,turn=turn) %>% free
-  return(a)  
+  X %<>% unclass %>% lapply(s,turn=turn) %>% free
+  return(X)  
 }
 
 `abs.free` <- function(x){
@@ -403,6 +404,8 @@ setGeneric("tietze",function(x){standardGeneric("tietze")})
   return(drop(out))
   }
 
+
+`shift` <- function(x,i=1){magic::shift(x,i)}
 
 setOldClass("free")
 setMethod("[", signature(x="dot",i="free",j="ANY"),

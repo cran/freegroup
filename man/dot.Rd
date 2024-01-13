@@ -18,10 +18,9 @@
 \alias{[,dot,matrix,matrix-method}
 \title{Class \dQuote{dot}}
 \description{
-
-  The dot object is defined in the \pkg{freealg} package, and imported
-  here, so that idiom like \code{.[x,y]} returns the commutator, that
-  is, \code{x^-1 y^-1 xy}.
+  The dot object is defined in the \CRANpkg{freealg} package, and
+  imported here, so that idiom like \code{.[x,y]} returns the
+  commutator, that is, \code{x^-1 y^-1 xy}.
 }
 \arguments{
   \item{x}{Object of any class}

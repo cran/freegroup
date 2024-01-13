@@ -47,8 +47,8 @@ sum(abc(-5:5))
 
 ## bear in mind that the symbols used are purely for the print method:
 jj <- LETTERS[1:10]
-options(symbols = apply(expand.grid(jj,jj),1,paste,collapse=""))
+options(freegroup_symbols = apply(expand.grid(jj,jj),1,paste,collapse=""))
 alpha(c(66,67,68,69))   # sensible output
-options(symbols=NULL)   # restore to symbols to default letters
+options(freegroup_symbols=NULL)   # restore to symbols to default letters
 alpha(c(66,67,68,69))   # print method not very helpful now
 }

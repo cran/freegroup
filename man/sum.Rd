@@ -21,20 +21,16 @@ Concatenates its arguments to give a single free object
 }
 \author{Robin K. S. Hankin}
 \note{
-
 The package uses additive notation, but it is easy to forget this and
 wonder why idiom like \code{prod(rfree())} does not work as desired.  Of
 course, the package using additive notation means that one probably
 wants \code{sum(rfree())}.
-
-
-  }
+}
 \examples{
 
 (x <- rfree(10,3))
 sum(x)
 abelianize(sum(x))
-
 
 (y <- rfree(10,6))
 

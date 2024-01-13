@@ -5,7 +5,7 @@
 \alias{bigness}
 \title{
 Bignesses of a free object}
-\description{Various metrics to say how \dQuote{big} a free object is}
+\description{Various metrics to describe how \dQuote{big} a free object is}
 \usage{
 size(a)
 total(a)
@@ -21,7 +21,7 @@ bigness(a)
 
     \item The \dfn{size} of an object is the number of pure powers in
     it (this is the number of columns of the matrix representation of
-    the word).
+    the word)
     
     \item The \dfn{total} of an object is the sum of the absolute
     values of its powers
@@ -35,8 +35,7 @@ bigness(a)
 
   Function \code{bigness()} is a convenience wrapper that returns all
   three bigness measures.
-  
-  
+    
 }
 \value{These functions return an integer vector.}
 \author{Robin K. S. Hankin}

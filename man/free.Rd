@@ -19,15 +19,15 @@ list_to_free(x)
     \code{free()} (possibly via \code{list_to_free()})}
 }
 \details{
-The basic structure of an element of the free group is a two-row
-matrix.  The top row is the symbols (1=a, 2=b, 3=c, etc)  and the bottom
-row is the corresponding power. Thus \eqn{a^2ba^{-1}}{a^2ba^-1} would be
+The basic structure of an element of the free group is a two-row matrix.
+The top row is the symbols (1=a, 2=b, 3=c, etc) and the bottom row is
+the corresponding power.  Thus \eqn{a^2ba^{-1}c^9}{a^2ba^-1c^9} would be
 
 \preformatted{
-> rbind(c(1,2,1),c(2,1,-1))
-     [,1] [,2] [,3]
-[1,]    1    2    1
-[2,]    2    1   -1
+> rbind(c(1,2,1,3),c(2,1,-1,9))
+     [,1] [,2] [,3] [,4]
+[1,]    1    2    1    3
+[2,]    2    1   -1    9
 >
 }
 

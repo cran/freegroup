@@ -19,16 +19,24 @@
 
 }
 \note{
-  The function is not robust; for example, passing  anything other than
-  lower-case letters a-z will give possibly undesirable behaviour.
+  
+  The function is not particularly robust; for example, passing anything
+  other than letters a-z or A-Z will give possibly undesirable
+  behaviour.
 
+  Upper-case letters A-Z are interpreted by \code{char_to_matrix()} as
+  the inverse of their corresponding lower-case equivalents.  This
+  behaviour is inherited by \code{char_to_free()} and \code{as.free()},
+  so that \code{as.free("A") == inverse(as.free("a"))}.
+  
   Function \code{char_to_free()} is consistent with the default print
   options (which are that the symbols are the lowercase letters a-z).
   If you change the symbols' names, for example
-  \code{options(symbols=sample(letters))}, then things can get
+  \code{options(freegroup_symbols=sample(letters))}, then things can get
   confusing.  The print method does not change the internal
   representation of a \code{free} object, which is a list of integer
-  matrices.}
+  matrices.
+}
 
 \author{Robin K. S. Hankin}
 \seealso{\code{\link{print.free}}}
@@ -39,6 +47,9 @@ char_to_matrix("aaabcABC")
 rfree(10,3) + as.free('xxxxxxxxxxxx')
 
 as.free(letters)*7
+
+all(is.id(as.free(letters) + as.free(LETTERS)))
+
 
 as.free('')  # identity element
 

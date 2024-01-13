@@ -4,7 +4,7 @@
 ### code chunk number 1: freegroup.Rnw:72-74
 ###################################################
 library("freegroup")
-options(symbols=letters) # should not be necessary
+options(freegroup_symbols=letters) # should not be necessary
 
 
 ###################################################
@@ -99,13 +99,13 @@ alpha(1:30)
 ###################################################
 ### code chunk number 16: freegroup.Rnw:253-255
 ###################################################
-options(symbols = state.abb)
+options(freegroup_symbols = state.abb)
 alpha(1:30)
 
 
 ###################################################
 ### code chunk number 17: freegroup.Rnw:266-267
 ###################################################
-options(symbols=letters)
+options(freegroup_symbols=letters)
 
 

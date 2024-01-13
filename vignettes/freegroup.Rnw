@@ -8,7 +8,7 @@
 
 
 %% just as usual
-\author{Robin K. S. Hankin\\Auckland University of Technology}
+\author{Robin K. S. Hankin\\University of Stirling}
 \title{The free group in \proglang{R}: introducing the \pkg{freegroup} package}
 %\VignetteIndexEntry{The freegroup package}
 
@@ -46,7 +46,7 @@ R-centric functionality is provided.  It is available on CRAN at
 %% in the following format:
 \Address{
   Robin K. S. Hankin\\%\orcid{https://orcid.org/0000-0001-5982-0415}\\
-  Auckland University of Technology\\
+  University of Stirling\\
   E-mail: \email{hankin.robin@gmail.com}
 }
 %% It is also possible to add a telephone and fax number
@@ -71,7 +71,7 @@ R-centric functionality is provided.  It is available on CRAN at
 
 <<echo=FALSE,print=FALSE>>=
 library("freegroup")
-options(symbols=letters) # should not be necessary
+options(freegroup_symbols=letters) # should not be necessary
 @ 
 
 \section{Introduction}
@@ -251,7 +251,7 @@ If this is a problem (it might not be: the print method might not be
 important) it is possible to override the default symbol set:
 
 <<>>=
-options(symbols = state.abb)
+options(freegroup_symbols = state.abb)
 alpha(1:30)
 @
 
@@ -264,7 +264,7 @@ clear whether this would be consistent with the precepts of
 \proglang{R}.
 
 <<echo=FALSE,print=FALSE>>=
-options(symbols=letters)
+options(freegroup_symbols=letters)
 @ 
 
 \bibliography{freegroup}

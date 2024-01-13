@@ -19,7 +19,12 @@ past one another.  Abelianization is vectorized.
 
 Function \code{is.abelian()} is trivial: it just checks to see whether
 argument \code{x} has its symbols in alphabetical order.  It might have
-been better to call this \code{abelianized()}. 
+been better to call this \code{abelianized()}.
+
+Package \CRANpkg{frab} presents extensive R-centric functionality for
+dealing with the free Abelian group.  It is much more efficient than
+this package for Abelian operations, and contains bespoke methods for
+working with a range of applications such as tables of counts.
 
 }
 \author{Robin K. S. Hankin}

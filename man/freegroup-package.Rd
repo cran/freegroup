@@ -33,7 +33,9 @@ sum(p)
 
 abelianize(p)
 
-subs(p,"ab","z")
+subsu(p,"ab","z")
+subs(p,a='z')
+
 
 discard(p+x,'a')
 

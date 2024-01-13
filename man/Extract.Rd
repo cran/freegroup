@@ -20,6 +20,6 @@ These methods (should) work as expected: an object of class
 x[5:6]
 x[1:2]  <- -x[11:12]
 
-x[1:5] \%<>\%  keep(1:3)
+x[1:5] <- keep(x[1:5],1:3)
 
 }
