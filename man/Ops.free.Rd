@@ -33,7 +33,7 @@ juxtapose(e1,e2)
   \dQuote{\code{^}}, and \dQuote{\code{==}}) to the appropriate
   specialist function.
 
-  There are two non-trivial operations: juxtaposition, denoted
+  There are two non-trivial basic operations: juxtaposition, denoted
   \dQuote{\code{a+b}}, and inversion, denoted \dQuote{\code{-a}}.  Note
   that juxtaposition is noncommutative and \code{a+b} will not, in
   general, be equal to \code{b+a}.
@@ -46,8 +46,16 @@ juxtapose(e1,e2)
   \code{permutations} package.
 
   Multiplication between a free object \code{a} and an integer \code{n}
-  is defined as juxtaposing \code{n} copies of \code{a} and reducing.
-  Zero and negative values of \code{n} work as expected.
+  (as in \code{a*n} or \code{n*a}) is defined as juxtaposing \code{n}
+  copies of \code{a} and reducing.  Zero and negative values of \code{n}
+  work as expected.
+
+  Comparing a \code{free} object with a numeric does not make sense and
+  idiom such as \code{rfree() > 4} will return an error.  Comparing a
+  \code{free} object with another \code{free} object might be desirable
+  [specifically, lexicographic ordering], but is not currently
+  implemented.
+
 }
 \author{Robin K. S. Hankin}
 \note{

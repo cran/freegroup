@@ -5,6 +5,7 @@ import("methods")
 
 importFrom("magic","shift")
 importFrom("plyr","alply")
+importFrom("utils", "tail")
 
 importClassesFrom("freealg", "dot")
 importMethodsFrom("freealg", "[")

@@ -42,7 +42,7 @@ flip(X, turn)
   Functions \code{subs()} and \code{subsu()} substitute for particular
   symbols, not free group elements.  In particular, be careful with
   uppercase (inverse) symbols; because the power is discarded,
-  substituing with \code{x} is the same as substituting for \code{X}.
+  substituting with \code{x} is the same as substituting for \code{X}.
   This behaviour might change in the future.
 }
 

@@ -1,10 +1,14 @@
 \name{rfree}
 \alias{rfree}
+\alias{rfreee}
+\alias{rfreeee}
 \title{Random free objects}
 \description{Creates a vector of random free objects.  Intended as a
   quick \dQuote{get you going} example of free group objects}
 \usage{
-rfree(n=7, size=4, number = size, powers = seq(from = -size, to = size))
+rfree(n = 7, size = 4, number = size, powers = seq(from = -size, to = size))
+rfreee(n = 30, size = 8, number = size, powers = seq(from = -size, to = size))
+rfreeee(n = 40, size = 25, number = size, powers = seq(from = -size, to = size))
 }
 \arguments{
   \item{n}{Length of random vector to generate}
@@ -15,7 +19,12 @@ rfree(n=7, size=4, number = size, powers = seq(from = -size, to = size))
 }
 \details{
 The auxiliary arguments specify the general complexity of the returned
-object with small  meaning simpler.}
+object with small meaning simpler.
+
+Functions \code{rfreee()} and \code{rfreeee()} give, by default,
+successively more complicated expressions.
+
+}
 \author{Robin K. S. Hankin}
 \seealso{\code{\link{size}}}
 \examples{

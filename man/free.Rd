@@ -33,7 +33,7 @@ the corresponding power.  Thus \eqn{a^2ba^{-1}c^9}{a^2ba^-1c^9} would be
 
 Function \code{free()} needs either a two-row matrix or a list of
 two-row matrices.  It is the only place in the package that sets the
-class of an objet to \code{free}.  Function \code{as.free()} is a bit
+class of an object to \code{free}.  Function \code{as.free()} is a bit
 more user-friendly and tries a bit harder to do the Right Thing.
 
 The package uses \code{setOldClass("free")} for the \code{dot} methods.

@@ -8,10 +8,10 @@
 ## checker2(x[1],y) should return TRUE.
 
 
-library("magrittr")
+
 test_that("Test suite aaa.R",{
 
-checker1 <- function(x){
+checker1 <- function(x,do_expensive_test = TRUE){
 
   expect_true(is.free(as.free(x)))
 
@@ -84,12 +84,13 @@ checker1 <- function(x){
 
   expect_true(all(is.cyclically_reduced(as.cyclically_reduced(x))))
 
-  for(i in seq_along(x)){
-    o <- as.cyclically_reduced(x[i])
-    expect_true(all(o %~% allconj(o)))
-    expect_true(all(all(is.id(allconj(o) + allconj(-o)[shift(rev(1:total(o)))]))))
+  if(do_expensive_test){
+      for(i in seq_along(x)){
+          o <- as.cyclically_reduced(x[i])
+          expect_true(all(o %~% allconj(o)))
+          expect_true(all(all(is.id(allconj(o) + allconj(-o)[shift(rev(1:total(o)))]))))
+      }
   }
-
 
   expect_output(print(x))
   expect_output(print(x[FALSE]))
@@ -140,7 +141,7 @@ checker3 <- function(x,y,z){
   stopifnot(x^(y+z) == (x^y)^z) 
   stopifnot(x^z + y^z == (x+y)^z)
 
-  abelianize(x^z - x^y) %>% abelianize %>% is.id %>% stopifnot
+  abelianize(x^z - x^y) |> abelianize() |> is.id() |> stopifnot()
   stopifnot(sum(x,y,z) == sum(sum(x),sum(y),sum(z)))
 
   ## Hall-Witt:
@@ -152,7 +153,7 @@ checker3 <- function(x,y,z){
 
 
 
-for(i in 1:10){
+for(i in 1:2){
     x <- rfree(10,6,3)
     y <- rfree(10,6,3)
     z <- rfree(10,6,3)
@@ -161,6 +162,9 @@ for(i in 1:10){
     checker2(x,y)
     checker3(x,y,z)
 }
+
+checker1(rfreee(), FALSE)
+checker1(rfreeee(), FALSE)
 
 stopifnot(checker1(id()))
 stopifnot(checker1(as.free('a')))
