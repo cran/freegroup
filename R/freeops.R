@@ -21,10 +21,12 @@
             return(juxtapose(e1,inverse(e2)))
         } else if (.Generic == "^"){
             return(free_power(e1,e2))
-        } else if (.Generic == "==") {
+        } else if (.Generic == "=="){
             return(free_equal(e1,e2))
-        } else if (.Generic == "!=") {
+        } else if (.Generic == "!="){
             return(!free_equal(e1,e2))
+        } else if (.Generic == "*"){
+            return(juxtapose(e1, e2))
         } else {
             stop(gettextf("<free> %s <free> not defined", .Generic))
         }

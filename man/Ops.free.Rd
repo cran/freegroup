@@ -42,8 +42,14 @@ juxtapose(e1,e2)
 
   The caret, as in \code{a^b}, denotes group-theoretic exponentiation
   (\code{-b+a+b}); the notation is motivated by the identities
-  \code{x^(yz)=(x^y)^z} and \code{(xy)^z=x^z*y^z}, as in the
+  \code{x^(yz) == (x^y)^z} and \code{(xy)^z == x^z * y^z}, as in the
   \code{permutations} package.
+
+  \strong{As an experimental feature} the package now accepts
+  multiplicative notation, so these identities manifest in package idiom
+  as written.  However, this renders distributivity incorrect so that
+  \code{x*(y + z)} and \code{x*y + x*z} are not equal, in general
+  [distributivity manifests as \code{x*c(y, z) == c(x*y, x*z)}].
 
   Multiplication between a free object \code{a} and an integer \code{n}
   (as in \code{a*n} or \code{n*a}) is defined as juxtaposing \code{n}

@@ -29,82 +29,99 @@ library("freegroup")
 ###################################################
 ### code chunk number 5: freegroup.Rnw:163-164
 ###################################################
-x+y
+x + y
 
 
 ###################################################
-### code chunk number 6: freegroup.Rnw:183-184
+### code chunk number 6: freegroup.Rnw:193-194
 ###################################################
 x*5
 
 
 ###################################################
-### code chunk number 7: freegroup.Rnw:189-190
+### code chunk number 7: freegroup.Rnw:199-200
 ###################################################
 x*(0:3)
 
 
 ###################################################
-### code chunk number 8: freegroup.Rnw:195-196
+### code chunk number 8: freegroup.Rnw:205-206
 ###################################################
 abc(1:9)
 
 
 ###################################################
-### code chunk number 9: freegroup.Rnw:201-202
+### code chunk number 9: freegroup.Rnw:211-212
 ###################################################
 rfree(10,4)
 
 
 ###################################################
-### code chunk number 10: freegroup.Rnw:207-210
+### code chunk number 10: freegroup.Rnw:217-220
 ###################################################
-(u <- rfree(10,4))
--u
-u-u
+(p <- rfree(10,4))
+-p
+p-p
 
 
 ###################################################
-### code chunk number 11: freegroup.Rnw:216-217
+### code chunk number 11: freegroup.Rnw:226-227
 ###################################################
-sum(u)
+sum(p)
 
 
 ###################################################
-### code chunk number 12: freegroup.Rnw:224-227
+### code chunk number 12: freegroup.Rnw:234-237
 ###################################################
-u
-z <- alpha(26)
-u^z
+p
+a <- alpha(26)
+p^a
 
 
 ###################################################
-### code chunk number 13: freegroup.Rnw:233-234
+### code chunk number 13: freegroup.Rnw:243-244
 ###################################################
-sum(u^z) == sum(u^z)
+sum(p^a) == sum(p)^a
 
 
 ###################################################
-### code chunk number 14: freegroup.Rnw:240-241
+### code chunk number 14: freegroup.Rnw:250-255
 ###################################################
-.[u,z]
+x <- rfree()
+y <- rfree()
+z <- rfree()
+(x*y)^z == x^z * y^z
+x^(y*z) == (x^y)^z
 
 
 ###################################################
-### code chunk number 15: freegroup.Rnw:246-247
+### code chunk number 15: freegroup.Rnw:265-267
+###################################################
+x * c(y, z) == c(x*y, x*z)
+c(x, y) * z == c(x*z, y*z)
+
+
+###################################################
+### code chunk number 16: freegroup.Rnw:274-275
+###################################################
+.[p,a]
+
+
+###################################################
+### code chunk number 17: freegroup.Rnw:280-281
 ###################################################
 alpha(1:30)
 
 
 ###################################################
-### code chunk number 16: freegroup.Rnw:253-255
+### code chunk number 18: freegroup.Rnw:287-289
 ###################################################
 options(freegroup_symbols = state.abb)
 alpha(1:30)
 
 
 ###################################################
-### code chunk number 17: freegroup.Rnw:266-267
+### code chunk number 19: freegroup.Rnw:300-301
 ###################################################
 options(freegroup_symbols=letters)
 

@@ -1,6 +1,10 @@
+# freegroup 1.2-0
+
+- multiplicative notation now implemented
+
 # freegroup 1.1-9
 
-- bugfixes
+- bugfixes and small documentation improvements
 - proper checking of subs() functionality
 - rfreee()
 

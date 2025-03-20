@@ -161,12 +161,18 @@ the plus symbol:
 
 
 <<>>=
-x+y
+x + y
 @
 
-(see how the $a$ ``cancels out'' in the juxtaposition).  One motivation
-for the use of ``\code{+}'' rather than ``\code{*}'' is that
-\proglang{Python} uses ``\code{+}'' for appending strings:
+(see how the $a$ ``cancels out'' in the juxtaposition).
+
+\subsection{Notation}
+
+The package generally uses additive notation but also, as an
+experimental feature, supports multipicative notation.  Thus \code{x+y
+  == x*y}.  One motivation for the use of ``\code{+}'' rather than
+``\code{*}'' is that \proglang{Python} uses ``\code{+}'' for appending
+strings:
 
 \begin{verbatim}
 >>> "a" + "abc"
@@ -176,7 +182,11 @@ for the use of ``\code{+}'' rather than ``\code{*}'' is that
 
 However, note that the ``\code{+}'' symbol is usually reserved for
 commutative and associative operations; string juxtaposition is
-associative.  Multiplication by integers---denoted in \pkg{freegroup}
+associative.  
+
+
+
+Multiplication by integers---denoted in \pkg{freegroup}
 idiom by ``\code{*}''---is also defined.  Suppose we want to
 concatenate 5 copies of \code{x}:
 
@@ -184,7 +194,7 @@ concatenate 5 copies of \code{x}:
 x*5
 @
 
-The package is vectorized:
+This operation is vectorized:
 
 <<>>=
 x*(0:3)
@@ -205,16 +215,16 @@ rfree(10,4)
 Inverses are calculated using unary or binary minus:
 
 <<>>=
-(u <- rfree(10,4))
--u
-u-u
+(p <- rfree(10,4))
+-p
+p-p
 @
 
 We can take the ``sum'' of a vector of free objects simply by
 juxtaposing the elements:
 
 <<>>=
-sum(u)
+sum(p)
 @
 
 Powers are defined as per group conjugation: \code{x\string^y ==
@@ -222,23 +232,47 @@ y\string^\string{-1\string}xy} (or, written in additive notation,
 \code{-y+x+y}):
 
 <<>>=
-u
-z <- alpha(26)
-u^z
+p
+a <- alpha(26)
+p^a
 @
 
 
 Thus:
 
 <<>>=
-sum(u^z) == sum(u^z)
+sum(p^a) == sum(p)^a
 @
+
+The experimental multiplicative notation allows us to have the
+equivalent of $(xy)^z = x^zy^z$ and $x^{(yz)}=(x^y)^z$:
+
+<<>>=
+x <- rfree()
+y <- rfree()
+z <- rfree()
+(x*y)^z == x^z * y^z
+x^(y*z) == (x^y)^z
+@ 
+
+In additive notation these manifest, somewhat unappealingly, as
+\code{(x+y)\string^z == x\string^z + y\string^z} and
+\code{x\string^(y+z) = (x\string^y)\string^z}.  Further, note that the
+distributive law $x*(y+z)=x*y+x*z$ is now incorrect [we have, again
+  somewhat unappealingly, $x*(y+z)=x*y*z=x+y+z$] but it can be
+resurrected if we reinterpret addition as (vector) juxtaposition:
+
+<<>>=
+x * c(y, z) == c(x*y, x*z)
+c(x, y) * z == c(x*z, y*z)
+@ 
+
 
 There is also a commutator bracket, defined as $[x,y]=x^{-1}y^{-1}xy$
 or in package idiom \code{.[x,y]=-x-y+x+y}:
 
 <<>>=
-.[u,z]
+.[p,a]
 @ 
 
 If we have more than 26 symbols the print method runs out of letters:

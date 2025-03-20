@@ -18,7 +18,7 @@ checker1 <- function(x,do_expensive_test = TRUE){
   expect_true(all(x==x))
   expect_false(any(x!=x))
   expect_error(!x)
-  expect_error(x*x)
+#  expect_error(x*x)
   expect_error(1+x)
   expect_error(x+1)
     
@@ -102,7 +102,8 @@ checker1 <- function(x,do_expensive_test = TRUE){
 
 checker2 <- function(x,y){
 
-    expect_error(x*y)
+    expect_true(all(x+y == x*y))
+    expect_true(all(y+x == y*x))
 
     expect_true(all(x^y == -y+x+y))
     expect_true(all(x+y == x-(-y)))
@@ -143,6 +144,10 @@ checker3 <- function(x,y,z){
 
   abelianize(x^z - x^y) |> abelianize() |> is.id() |> stopifnot()
   stopifnot(sum(x,y,z) == sum(sum(x),sum(y),sum(z)))
+
+  ## distributivity:
+  stopifnot(x * c(y, z) == c(x*y, x*z))
+  stopifnot(c(x, y) * z == c(x*z, y*z))
 
   ## Hall-Witt:
   stopifnot(all(is.id(.[.[x,-y],z]^y + .[.[y,-z],x]^z + .[.[z,-x],y]^x)))
